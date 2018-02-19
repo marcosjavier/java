@@ -10,5 +10,6 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.autocommit">true</property>
     <mapping resource="hiber/hbm/Usuario.hbm.xml"/>
+    <mapping resource="hiber/hbm/Cliente.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

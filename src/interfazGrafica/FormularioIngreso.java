@@ -7,6 +7,7 @@
 package interfazGrafica;
 import javax.swing.JOptionPane;
 import org.hibernate.SessionFactory;
+import remotec.Cliente;
 import remotec.Usuario;
 
 /**
@@ -122,22 +123,32 @@ public class FormularioIngreso extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEnviarActionPerformed
-        if(nombreUsuario.getText().equals("marcos")&&contraUsuario.getText().equals("123"))
+        if(nombreUsuario.getText().isEmpty() || contraUsuario.getText().isEmpty())
         {
-            System.out.print("Datos ingresados en formulario son correctos");
+            JOptionPane.showMessageDialog(this,"Usuario y/o clave no pueden ser vacios, vuelva a ingresarlos","Error",JOptionPane.ERROR_MESSAGE);
+            
+        }
+        else{            
             Usuario user =new Usuario(sessionFactory);
+            user.loguearUser(nombreUsuario.getText(), contraUsuario.getText());
+            if (user.isLogin()){
+                this.setVisible(false);        
+                FormularioMenuPrincipal menuprin=new FormularioMenuPrincipal();
+                menuprin.setVisible(true);}
             /*if(user.loguear(nombreUsuario.getText(),contraUsuario.getText()))
             {
                 user.setNombre(nombreUsuario.getText());
                 
                 System.out.print("usuario encontrado en la base de datos");
             }*/
-            user.loguear(nombreUsuario.getText(), contraUsuario.getText());
+            //user.loguear(nombreUsuario.getText(), contraUsuario.getText());
+            
+            
+            
+            
             this.setVisible(false);        
             FormularioMenuPrincipal menuprin=new FormularioMenuPrincipal();
             menuprin.setVisible(true);
-        }
-        else{JOptionPane.showMessageDialog(this,"Usuario y/o clave incorrectos","Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botonEnviarActionPerformed
     
