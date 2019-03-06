@@ -12,20 +12,28 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+
 /**
  *
  * @author marcos
  */
 public class Cliente {
-    private int id;
-    private String nombres;
-    private String apellidos;
-    private String razon_social;
-    private String telefono;
-    private String domicilio;
+    private long id;
+    private String names;
+    private String surname;
+    private String tradename;
+    private String phone;
+    private String address;
     private SessionFactory sessionFactory;
     
     public Cliente(){};
+    public Cliente(String nom, String ape, String raz, String dom,String tel){
+        this.names=nom;
+        this.surname=ape;
+        this.tradename=raz;
+        this.address=dom;
+        this.phone=tel;
+    }
     public Cliente(SessionFactory sessionFactory){
        this.sessionFactory=sessionFactory;
     }
@@ -33,108 +41,111 @@ public class Cliente {
     /**
      * @return the id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
     /**
      * @return the nombres
      */
-    public String getNombres() {
-        return nombres;
+    public String getNames() {
+        return names;
     }
 
     /**
-     * @param nombres the nombres to set
+     * @param names the nombres to set
      */
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNames(String names) {
+        this.names = names;
     }
 
     /**
      * @return the apellidos
      */
-    public String getApellidos() {
-        return apellidos;
+    public String getSurname() {
+        return surname;
     }
 
     /**
-     * @param apellidos the apellidos to set
+     * @param surname the apellidos to set
      */
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     /**
      * @return the razon_social
      */
-    public String getRazon_social() {
-        return razon_social;
+    public String getTradename() {
+        return tradename;
     }
 
     /**
-     * @param razon_social the razon_social to set
+     * @param tradename the razon_social to set
      */
-    public void setRazon_social(String razon_social) {
-        this.razon_social = razon_social;
+    public void setTradename(String tradename) {
+        this.tradename = tradename;
     }
 
     /**
      * @return the telefono
      */
-    public String getTelefono() {
-        return telefono;
+    public String getPhone() {
+        return phone;
     }
 
     /**
-     * @param telefono the telefono to set
+     * @param phone the telefono to set
      */
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     /**
      * @return the domicilio
      */
-    public String getDomicilio() {
-        return domicilio;
+    public String getAddress() {
+        return address;
     }
 
     /**
-     * @param domicilio the domicilio to set
+     * @param address the domicilio to set
      */
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
+    public void setAddress(String address) {
+        this.address = address;
     }
     
-    public void listarClientes(){
+    public List listarClientes(){
+        //Session session= sessionFactory.getCurrentSession();
         Session session= sessionFactory.openSession();
+        List clientes = null;
         Transaction tx = null;
         try{
             tx=session.beginTransaction();
-            List clientes=session.createQuery("FROM Cliente").list();
+            clientes=session.createQuery("FROM Cliente").list();
             if (!clientes.isEmpty()){
                 System.out.println("LISTA DE CLIENTES");
                 for(Iterator iterador = clientes.iterator(); iterador.hasNext();){
                 Cliente cliente= (Cliente)iterador.next();                
                 System.out.println("id: "+cliente.getId());
-                System.out.println("nombres: "+cliente.getNombres());
-                System.out.println("apellidos: "+cliente.getApellidos());
-                System.out.println("razon_social: "+cliente.getRazon_social());
-                System.out.println("telefono: "+cliente.getTelefono());
-                System.out.println("domicilio: "+cliente.getDomicilio());
+                System.out.println("nombres: "+cliente.getNames());
+                System.out.println("apellidos: "+cliente.getSurname());
+                System.out.println("razon_social: "+cliente.getTradename());
+                System.out.println("telefono: "+cliente.getPhone());
+                System.out.println("domicilio: "+cliente.getAddress());
                 
                 }
-                        
+                       
             tx.commit();
             }else{System.out.println("lista vacia");}
+            
             }catch(HibernateException e){
                 e.getMessage();
                 if (tx!= null)tx.rollback();
@@ -144,9 +155,29 @@ public class Cliente {
             finally {           
             
             session.close();}
+        return clientes;
         }
-    }
+    public void guardarCliente(String nombres,String apellidos, String razon_social, String telefono,
+    String domicilio){
+        Session session= sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx=session.beginTransaction();
+            Cliente cl = new Cliente(nombres, apellidos, razon_social, domicilio, telefono);
+            session.save(cl);
+            tx.commit();
+            System.out.println("cliente guardado");
+            
+        }catch(HibernateException e){
+            e.getMessage();
+            if (tx!= null)tx.rollback();
+                e.printStackTrace();                
+            }
+            finally {             
+            session.close();}
     
+    }
+    }    
     
     
 

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package remotec;
+package dao;
+import remotec.Usuario;
 
 /**
  *
  * @author marcos
  */
-public class HibernateUtil {
-    
+public interface UserDao {
+  public Usuario validarUser(String nombre, String clave);
+  
 }

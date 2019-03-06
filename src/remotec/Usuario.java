@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+
 /**
  *
  * @author marcos
@@ -20,14 +21,16 @@ import org.hibernate.Transaction;
 public class Usuario {
     
     private int id;
-    private String nombre;
-    private String clave;
+    private String password;
+    private String email;
     private SessionFactory sessionFactory;
     private boolean login;
 
     public Usuario(){};
     public Usuario(SessionFactory sessionFactory){
-        this.sessionFactory=sessionFactory;
+        
+        this.sessionFactory= sessionFactory;
+        
     }
     
     //llamo al metodo conectar con un query de consulta a la base datos
@@ -37,7 +40,7 @@ public class Usuario {
         
         //boolean bandera=ConectarPostgreSQL.consulta("SELECT nombre, clave FROM usuarios WHERE nombre='"+nombre+"' AND clave='"+clave+"'");
      
-        String string ="FROM Usuario U WHERE U.nombre='"+nombre+"'AND U.clave='"+clave+"'";
+        String string ="FROM Usuario U WHERE U.email='"+nombre+"'AND U.password='"+clave+"'";
         Session session;
         session = sessionFactory.openSession();        
         Query query = session.createQuery(string); 
@@ -47,6 +50,7 @@ public class Usuario {
             this.setLogin(true);
             System.out.println("usuario  logueado con exito ");
         }
+        
     }
         
         /*for (Iterator iterador =resultados.iterator(); iterador.hasNext(); )
@@ -57,7 +61,7 @@ public class Usuario {
         //return boolean bandera=true;*/
     
     public void listarUsuarios(){
-        Session session= sessionFactory.openSession();
+        Session session= sessionFactory.getCurrentSession();
         Transaction tx = null;
         try{
             tx=session.beginTransaction();
@@ -65,8 +69,8 @@ public class Usuario {
             for(Iterator iterador = usuarios.iterator(); iterador.hasNext();){
                 Usuario usuario= (Usuario)iterador.next();
                 System.out.println("id: "+usuario.getId());
-                System.out.println("nombre: "+usuario.getNombre());
-                System.out.println("clave: "+usuario.getClave());
+                System.out.println("nombre: "+usuario.getEmail());
+                System.out.println("clave: "+usuario.getPassword());
             }
             tx.commit();
             }catch(HibernateException e){
@@ -79,20 +83,10 @@ public class Usuario {
     
     
     
+    
+    
 
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
 
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     /**
      * @return the id
@@ -111,15 +105,15 @@ public class Usuario {
     /**
      * @return the clave
      */
-    public String getClave() {
-        return clave;
+    public String getPassword() {
+        return password;
     }
 
     /**
-     * @param clave the clave to set
+     * @param password the clave to set
      */
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
@@ -134,5 +128,19 @@ public class Usuario {
      */
     public void setLogin(boolean login) {
         this.login = login;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="remotec.Cliente" table="clientes">
-   <meta attribute="class-descripction">
-      Esta clase contiene los detalles del Usuario
-  </meta>
-  <id name="id" type="integer" column="id" >
-  <generator class="sequence"></generator>
-  </id>
-  <property name = "nombres" column = "nombres" type = "string"/>
-  <property name = "apellidos" column = "apellidos" type = "string"/>
-  <property name ="razon_social" column = "razon_social" type ="string" />
-  <property name = "telefono" column = "telefono" type = "string"/>
-  <property name = "domicilio" column ="domicilio" type = "string" />
-</class>
+    <class name="remotec.Cliente" table="customers">
+        <meta attribute="class-descripction">
+            Esta clase contiene los detalles del Cliente 
+        </meta>
+        <id name="id" type="long" column="id">
+            <generator class="native"/>
+        </id>
+        <property name = "names" column = "names" type = "string"/>
+        <property name = "surname" column = "surname" type = "string"/>
+        <property name ="tradename" column = "tradename" type ="string" />
+        <property name = "phone" column = "phone" type = "string"/>
+        <property name = "address" column ="address" type = "string" />
+    </class>
 </hibernate-mapping>

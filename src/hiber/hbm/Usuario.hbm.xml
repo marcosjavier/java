@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="hiber.hbm">
-  <class name="remotec.Usuario" table="usuarios">
-  <meta attribute="class-descripction">
-      Esta clase contiene los detalles del Usuario
-  </meta>
-  <id name="id" type="integer" column="id" >
-      <generator class="sequence"></generator>
-  </id>
-  <property name = "nombre" column = "nombre" type = "string"/>
-  <property name = "clave" column = "clave" type = "string"/>  
+  <class name="remotec.Usuario" table="users">
+    <meta attribute="class-descripction">
+        Esta clase contiene los detalles del Usuario
+    </meta>
+    <id name="id" type="integer" column="id" >
+        <generator class="native"/>
+    </id>    
+    <property name = "password" column = "password" type = "string"/>
+    <property name = "email" column = "email" type = "string" />  
   </class>
 </hibernate-mapping>

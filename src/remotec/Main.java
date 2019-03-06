@@ -4,13 +4,8 @@
  * and open the template in the editor.
  */
 package remotec;
+import util.HibernateUtil;
 import org.hibernate.SessionFactory;
-
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-
-
 /**
  *
  * @author marcos
@@ -18,22 +13,16 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Main {
     
+    private final static SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-       // SessionFactory sessionFactory;
-        ServiceRegistry serviceRegistry;
        
-        
-       Configuration configuration = new Configuration();
-       configuration.configure();
-       serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-       final SessionFactory sessionFactory= configuration.buildSessionFactory(serviceRegistry);
-     
-    new Remotec(sessionFactory).run();
+    //sessionFactory = HibernateUtil.getSessionFactory();
+    new GestorRemotec(sessionFactory).run();
     }
 }
     
