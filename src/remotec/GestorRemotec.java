@@ -4,19 +4,17 @@
  * and open the template in the editor.
  */
 package remotec;
-
 import dao.ClientesDao;
 import dao.ClientesDaoHibernateImpl;
 import dao.UserDao;
 import dao.UserDaoHibernate;
-import org.hibernate.Session;
+
 import org.hibernate.SessionFactory;
 import interfazGrafica.FormularioIngreso;
 import interfazGrafica.FormularioMenuPrincipal;
-import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
-import org.hibernate.Query;
+
 
 
 /**
@@ -26,6 +24,8 @@ import org.hibernate.Query;
 public class GestorRemotec {
     //private SessionFactory sessionFactory;
   UserDao user;
+  
+  
   ClientesDao cliente;  
   FormularioIngreso logueo;
   FormularioMenuPrincipal menuPrincipal;
@@ -71,6 +71,9 @@ public class GestorRemotec {
     }
 
   }
+  
+  public List<Cliente> listaDeClientes(){
+  return cliente.obtenerTodos();};
   
   public void guardarClienteNuevo(Cliente cliente){}
             
