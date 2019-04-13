@@ -15,17 +15,13 @@ import interfazGrafica.FormularioMenuPrincipal;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-
-
 /**
  *
  * @author marcos
  */
 public class GestorRemotec {
     //private SessionFactory sessionFactory;
-  UserDao user;
-  
-  
+  UserDao user; 
   ClientesDao cliente;  
   FormularioIngreso logueo;
   FormularioMenuPrincipal menuPrincipal;
@@ -51,9 +47,6 @@ public class GestorRemotec {
 	  System.out.println("nombre: "+usuario.getNombre());
 	  System.out.println("clave: "+usuario.getClave());}
       */
-
-
-
   }
     
   public void validarUsuario(String nombre, String pass){
@@ -75,6 +68,8 @@ public class GestorRemotec {
   public List<Cliente> listaDeClientes(){
   return cliente.obtenerTodos();};
   
-  public void guardarClienteNuevo(Cliente cliente){}
+  public void guardarClienteNuevo(Cliente nuevoCliente){
+    this.cliente.nuevoCliente(nuevoCliente);
+  }
             
 }

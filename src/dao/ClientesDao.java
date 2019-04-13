@@ -13,6 +13,7 @@ import remotec.Cliente;
  * @author marcos
  */
 public interface ClientesDao {
-  public List<Cliente> obtenerTodos();  
+  public List<Cliente> obtenerTodos();
+  public void nuevoCliente(Cliente datos);
     
 }
